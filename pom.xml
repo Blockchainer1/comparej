@@ -54,8 +54,8 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray-pivx-Pivxj</id>
-      <name>dash-Pivxj</name>
+      <id>bintray-send-Sendj</id>
+      <name>dash-Sendj</name>
       <url>https://api.bintray.com/maven/dash/Dashj/org.dashj/;publish=1</url>
     </repository>
   </distributionManagement>

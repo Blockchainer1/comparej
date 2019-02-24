@@ -459,18 +459,18 @@ public abstract class AbstractBlockChain {
             // article here for more details: https://bitcoinj.github.io/security-model
             try {
                 block.verifyHeader();
-                //System.out.println("New block previous hash: "+block.getPrevBlockHash());
+                System.out.println("New block previous hash: "+block.getPrevBlockHash());
                 storedPrev = getStoredBlockInCurrentScope(block.getPrevBlockHash());
                 if (storedPrev!=null) {
-                    //System.out.println("New block, previous stored block from db: " + storedPrev.getHeader().getHashAsString());
+                    System.out.println("New block, previous stored block from db: " + storedPrev.getHeader().getHashAsString());
                     checkArgument(block.getPrevBlockHash().equals(storedPrev.getHeader().getHash()), "Database saving shit.. prev hash block: " + block.getPrevBlockHash() + ", db prev hash: " + storedPrev.getHeader().getHashAsString());
                 }
 
                 if (storedPrev != null) {
                     height = storedPrev.getHeight() + 1;
-                    //System.out.println("Adding Block: "+height+" hash "+block.getHashAsString()+", Prev block "+storedPrev.getHeight()+" hash: "+block.getPrevBlockHash().toString());
+                    System.out.println("Adding Block: "+height+" hash "+block.getHashAsString()+", Prev block "+storedPrev.getHeight()+" hash: "+block.getPrevBlockHash().toString());
                 } else {
-                    //System.out.println("block height unknown");
+                    System.out.println("block height unknown");
                     height = Block.BLOCK_HEIGHT_UNKNOWN;
                 }
                 flags = params.getBlockVerificationFlags(block, versionTally, height);

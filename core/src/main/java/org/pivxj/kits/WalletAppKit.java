@@ -104,7 +104,7 @@ public class WalletAppKit extends AbstractIdleService {
         this.directory = checkNotNull(directory);
         this.filePrefix = checkNotNull(filePrefix);
 
-        context.initPivx(false, true);
+        context.initSend(false, true);
         context.initDashSync(directory.getAbsolutePath());
     }
 

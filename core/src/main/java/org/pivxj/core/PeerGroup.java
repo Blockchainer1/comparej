@@ -443,7 +443,7 @@ public class PeerGroup implements TransactionBroadcaster {
         //DashSpecific
 
 
-        // todo: check pivx MN..
+        // todo: check send MN..
         context.setPeerGroupAndBlockChain(this, chain);
         vMinRequiredProtocolVersion = params.getProtocolVersionNum(NetworkParameters.ProtocolVersion.MINIMUM);
     }

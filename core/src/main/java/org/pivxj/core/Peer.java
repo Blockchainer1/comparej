@@ -494,12 +494,12 @@ public class Peer extends PeerSocketHandler {
             currentFilteredBlock = null;
         }
 
-        // No further communication is possible until version handshake is complete.
-        if (!(m instanceof VersionMessage || m instanceof VersionAck
+        // // No further communication is possible until version handshake is complete.
+        if (!(m instanceof VersionMessage || m instanceof VersionAck || m instanceof SporkMessage
                 || (versionHandshakeFuture.isDone() && !versionHandshakeFuture.isCancelled()))) {
             String reason = "  " + ((m instanceof RejectMessage) ? ((RejectMessage) m).getReasonString() : "");
-            throw new ProtocolException(
-                    "Received " + m.getClass().getSimpleName() + " before version handshake is complete."+ reason);
+        //    throw new ProtocolException(
+          //          "Received " + m.getClass().getSimpleName() + " before version handshake is complete."+ reason);
         }
 
         if (m instanceof Ping) {
@@ -550,7 +550,11 @@ public class Peer extends PeerSocketHandler {
             log.error("{} {}: Received {}", this, getPeerVersionMessage().subVer, m);
         } else if(m instanceof DarkSendQueue) {
             //do nothing
-        } else if(m instanceof MasternodeBroadcast) {
+        } 
+		else if(m instanceof DarkSendElectionEntryPingMessage) {
+            // also do nothing :)
+        }
+		else if(m instanceof MasternodeBroadcast) {
             if(!context.isLiteMode()) {
                 //todo: process master nodes messages
                 //context.masternodeManager.processMasternodeBroadcast((MasternodeBroadcast) m);
@@ -574,7 +578,7 @@ public class Peer extends PeerSocketHandler {
                 context.instantSend.processTransactionLockVoteMessage(this, (TransactionLockVote)m);
         }
         else if(m instanceof SyncStatusCount) {
-            // todo furszy: check pivx masternodes
+            // todo furszy: check send masternodes
             if (context.masternodeSync!=null) {
                 //todo: process master nodes messages
                 //context.masternodeSync.processSyncStatusCount(this, (SyncStatusCount) m);
@@ -843,7 +847,7 @@ public class Peer extends PeerSocketHandler {
             TransactionConfidence confidence = tx.getConfidence();
             confidence.setSource(TransactionConfidence.Source.NETWORK);
 
-            //PIVX Specific
+            //CDZC Specific
             // todo furszy: commented dash instantSend for now.
             if (context.instantSend!=null)
                 context.instantSend.syncTransaction(tx, null);
@@ -1105,7 +1109,9 @@ public class Peer extends PeerSocketHandler {
                         final Block orphanRoot = checkNotNull(blockChain.getOrphanRoot(m.getHash()));
                         blockChainDownloadLocked(orphanRoot.getHash());
                     } else {
-                        log.info("Did not start chain download on solved block due to in-flight header download.");
+						final Block orphanRoot = checkNotNull(blockChain.getOrphanRoot(m.getHash()));
+                        blockChainDownloadLocked(orphanRoot.getHash());
+                        //log.info("Did not start chain download on solved block due to in-flight header download.");
                     }
                 } finally {
                     lock.unlock();

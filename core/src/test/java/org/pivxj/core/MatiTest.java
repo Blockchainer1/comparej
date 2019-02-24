@@ -98,7 +98,7 @@ public class MatiTest {
         Wallet wallet = Wallet.fromSeed(
                 networkParameters,
                 seed,
-                DeterministicKeyChain.KeyChainType.BIP44_PIVX_ONLY
+                DeterministicKeyChain.KeyChainType.BIP44_SEND_ONLY
         );
 
         System.out.println("Wallet version: "+wallet.getVersion());
@@ -164,8 +164,8 @@ public class MatiTest {
     }
 
     public Wallet restore(NetworkParameters networkParameters) throws IOException {
-        String filename = "2.0.32_pivx-wallet-backup_org.pivx.production-2017-11-20";
-        //"1.01_pivx-wallet-backup_org.pivx.production-2017-07-26 (2)";
+        String filename = "2.0.32_send-wallet-backup_org.send.production-2017-11-20";
+        //"1.01_send-wallet-backup_org.send.production-2017-07-26 (2)";
         String password = "123";//"12345678";
 
 
@@ -251,7 +251,7 @@ public class MatiTest {
         Wallet wallet = Wallet.fromSeed(
                 networkParameters,
                 seed,
-                DeterministicKeyChain.KeyChainType.BIP44_PIVX_ONLY
+                DeterministicKeyChain.KeyChainType.BIP44_SEND_ONLY
         );
 
         DeterministicKey xpubKey = wallet.getWatchingKey();
@@ -261,7 +261,7 @@ public class MatiTest {
         System.out.println("chaincode: "+ Hex.toHexString(xpubKey.getChainCode()));
         System.out.println("first address: "+wallet.freshReceiveAddress().toBase58());
 
-        Wallet watchingWallet = Wallet.fromWatchingKeyB58(networkParameters,xpub,0, DeterministicKeyChain.KeyChainType.BIP44_PIVX_ONLY);
+        Wallet watchingWallet = Wallet.fromWatchingKeyB58(networkParameters,xpub,0, DeterministicKeyChain.KeyChainType.BIP44_SEND_ONLY);
         DeterministicKey xpubKey2 = watchingWallet.getWatchingKey();
         System.out.println("Watching key:  "+xpubKey2.serializePubB58(networkParameters));
         System.out.println("key path: "+xpubKey2.getPathAsString());

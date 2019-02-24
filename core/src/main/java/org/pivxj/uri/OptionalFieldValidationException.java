@@ -15,7 +15,7 @@
 package org.pivxj.uri;
 
 /**
- * <p>Exception to provide the following to {@link PivxURI}:</p>
+ * <p>Exception to provide the following to {@link SendURI}:</p>
  * <ul>
  * <li>Provision of parsing error messages</li>
  * </ul>

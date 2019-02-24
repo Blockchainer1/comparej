@@ -265,6 +265,6 @@ public class SendRequest {
         return helper.toString();
     }
 
-    //PIVX Specific
+    //CDZC Specific
     public boolean useInstantSend;
 }
